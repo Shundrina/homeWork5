@@ -2,29 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>hola</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+    <title>Students</title>
     <link href="https://fonts.googleapis.com/css2?family=Texturina:ital@1&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Padauk&display=swap" rel="stylesheet">
 </head>
+<body>
 <style>
     body {
         width: 100vw;;
-        background-image: url('https://images-na.ssl-images-amazon.com/images/I/A1OMsqcKNIL._SL1500_.jpg');
+        background-image: url('https://funart.pro/uploads/posts/2020-04/thumbs/1587229776_4-p-temnie-foni-s-teksturoi-dlya-saitov-10.jpg');
         background-attachment: fixed;
         background-position: center;
         background-repeat: no-repeat;
@@ -34,86 +19,40 @@
         align-items: center;
     }
 
-
-    .title {
-        font-size: 70px;
-        font-weight: 700;
-        margin-top: 0;
-        margin-bottom: 0;
-        -webkit-text-stroke: 2px #ffffff;
-    }
-
-    .animate__fadeInLeft {
-        margin-left: 100px;
-        color: orangered;
-    }
-
-    .animate__fadeInRightBig {
-        margin-right: 100px;
-        color: blue;
-    }
-
-    .title1 {
-        font-family: 'Shadows Into Light', cursive;
-    }
-    .title2 {
-        font-family: 'Indie Flower', cursive;
-    }
-
-    .title3 {
-        font-family: 'Architects Daughter', cursive;
-    }
-
-    .title4 {
-        font-family: 'Dancing Script', cursive;
-
-    }
-
-    .title5 {
-        font-family: 'Josefin Sans', sans-serif;
-    }
-
-    .title6 {
-        font-family: 'Nanum Gothic', sans-serif;
-    }
-
-    .title7 {
+    ol {
+        color: white;
         font-family: 'Texturina', serif;
     }
 
-    .title8 {
-        font-family: 'Nerko One', cursive;
+    ul {
+        list-style: none;
+
     }
 
-    .title9 {
-        font-family: 'East Sea Dokdo', cursive;
+    ul li:first-child {
+        font-size: 20px;
+        font-weight: 700;
     }
 
-    .title10 {
-        font-family: 'Raleway', sans-serif;
-    }
-
-    .title11 {
-        font-family: 'Montserrat', sans-serif;
-    }
-    .title12 {
-        font-family: 'Padauk', sans-serif;
-    }
 
 
   </style>
-<body>
-    <h2 class="title1 title animate__animated animate__fadeInLeft">Hello World</h2>
-    <h2 class="title2 title animate__animated animate__fadeInRightBig">Hello World</h2>
-    <h2 class="title3 title animate__animated animate__fadeInLeft">Hello World</h2>
-    <h2 class="title4 title animate__animated animate__fadeInRightBig">Hello World</h2>
-    <h2 class="title5 title animate__animated animate__fadeInLeft">Hello World</h2>
-    <h2 class="title6 title animate__animated animate__fadeInRightBig">Hello World</h2>
-    <h2 class="title7 title animate__animated animate__fadeInLeft">Hello World</h2>
-    <h2 class="title8 title animate__animated animate__fadeInRightBig">Hello World</h2>
-    <h2 class="title9 title animate__animated animate__fadeInLeft">Hello World</h2>
-    <h2 class="title10 title animate__animated animate__fadeInRightBig">Hello World</h2>
-    <h2 class="title11 title animate__animated animate__fadeInLeft">Hello World</h2>
-    <h2 class="title12 title animate__animated animate__fadeInRightBig">Hello World</h2>
+<ol>
+    {% for student in students %}
+    <li>
+        <ul>
+            <li>{{ student.name }} {{ student.surname }}</li>
+            <li>{{ student.age }}</li>
+            <li>{{ student.sex }}</li>
+            <li>{{ student.address }}</li>
+            <li>{{ student.description }}</li>
+            <li>{{ student.birthday }}</li>
+            <li>{{ student.email }}</li>
+        </ul>
+    </li>
+    <br/>
+    {% endfor %}
+</ol>
+
 </body>
 </html>

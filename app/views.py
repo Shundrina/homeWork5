@@ -1,8 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 # Create your views here.
+from app.models import Student
 
 
-def home(request):
+def show_all_students(request):
 
-    return render(request, 'index.html')
+    students = Student.objects.all()
+
+    return render(
+        request=request,
+        template_name='index.html',
+        context={
+            'students': students,
+        }
+    )
