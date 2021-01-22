@@ -7,5 +7,11 @@ class StudentForm(ModelForm):
     class Meta:
         model = Student
         fields = [
-            'name', 'surname', 'age', 'sex', 'address', 'description', 'birthday', 'email'
+            'name',
+            'surname',
+            'age', 'sex',
+            'address',
+            'description',
+            'birthday',
+            'email'
         ]
