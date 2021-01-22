@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 # Create your views here.
 from app.forms import StudentForm
 from app.models import Student
