@@ -26,5 +26,3 @@ class Command(BaseCommand):
             student.description = faker.text()
             student.email = faker.email()
             student.save()
-
-
