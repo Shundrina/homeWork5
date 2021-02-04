@@ -9,9 +9,11 @@ class StudentForm(ModelForm):
         fields = [
             'name',
             'surname',
-            'age', 'sex',
+            'age',
+            'sex',
             'address',
             'description',
             'birthday',
-            'email'
+            'email',
+            'social_url',
         ]
