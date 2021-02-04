@@ -22,6 +22,8 @@ from app.views import StudentsView, CreateNewStudentView, UpdateStudentView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('students/', StudentsView.as_view(), name='all_students'),
-    path('students/create', CreateNewStudentView.as_view(), name='new_student'),
-    path('students/update/<id>/', UpdateStudentView.as_view(), name='update_student'),
+    path('students/create', CreateNewStudentView.as_view(),
+         name='new_student'),
+    path('students/update/<id>/', UpdateStudentView.as_view(),
+         name='update_student'),
 ]

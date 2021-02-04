@@ -83,6 +83,3 @@ class UpdateStudentView(View):
             student_form.save()
 
         return redirect(reverse('all_students'))
-
-
-

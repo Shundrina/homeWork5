@@ -16,7 +16,8 @@ class StudentAdmin(ModelAdmin):
         social_url = Student.social_url
         name = Student.name + ' ' + Student.surname
         if social_url:
-            return format_html("<a href='{url}'>{name}</a>", url=social_url, name=name)
+            return format_html("<a href='{url}'>{name}</a>",
+                               url=social_url, name=name)
         else:
             return Student.name + " " + Student.surname
 
