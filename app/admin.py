@@ -14,12 +14,13 @@ class StudentAdmin(ModelAdmin):
 
     def social(self, Student):
         social_url = Student.social_url
-        name = Student.name + ' ' + Student.surname
+        name = " ".join((Student.name, Student.surname))
+
         if social_url:
             return format_html("<a href='{url}'>{name}</a>",
                                url=social_url, name=name)
         else:
-            return Student.name + " " + Student.surname
+            return name
 
 
 admin.site.register(Student, StudentAdmin)
