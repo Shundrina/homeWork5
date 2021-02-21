@@ -1,38 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>new student</title>
-    <link href="https://fonts.googleapis.com/css2?family=Texturina:ital@1&display=swap" rel="stylesheet">
-</head>
-<body>
-<style>
-     body {
-        width: 100vw;
-        background-image: url('https://funart.pro/uploads/posts/2020-04/thumbs/1587229776_4-p-temnie-foni-s-teksturoi-dlya-saitov-10.jpg');
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        display: flex;
-        font-family: 'Texturina', serif;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        height: 99vh;
-        margin: 0;
-    }
-    form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-</style>
-<form action="/students/create" method="POST">
-    {% csrf_token %}
-    {{ student_form }}
-    <input type="submit">
-</form>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %} New student {% endblock %}
+
+{% block body %}
+<div class="album py-5 bg-light mt-5">
+    <div class="container">
+        <form action="/students/create" method="POST" class="d-flex flex-column mx-auto col-md-4">
+            {% csrf_token %}
+            {{ student_form }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
