@@ -9,7 +9,7 @@ from app.models import Student
 @receiver(pre_save, sender=Student)
 def normal_name(sender, instance, **kwargs):
     fullname = " ".join((instance.name, instance.surname))
-    instance.normalized_name = re.sub('[^\w\s]|_', '', fullname).lower()
+    instance.normalized_name = re.sub('[^\w\s]|_', '', fullname).lower() # noqa
 
 
 @receiver(pre_save, sender=Student)
