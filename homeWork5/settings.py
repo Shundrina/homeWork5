@@ -48,6 +48,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'homeWork5.middleware.LogMiddleware',
+    'homeWork5.middleware.RawDataMiddleware',
+    'homeWork5.middleware.IdentifyResponseMiddleware',
 ]
 
 ROOT_URLCONF = 'homeWork5.urls'
