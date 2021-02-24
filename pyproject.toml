@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "homework5"
+version = "0.1.0"
+description = ""
+authors = ["Dariia <lystopadina@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^3.1.7"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.8.4"
+Faker = "^6.4.1"
+gender-guesser = "^0.4.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
