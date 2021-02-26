@@ -15,8 +15,10 @@ class Student(models.Model):
     email = models.CharField(max_length=200)
     social_url = models.CharField(null=True, max_length=200)
     normalized_name = models.CharField(null=True, max_length=200)
-    book = models.OneToOneField('app.Book', on_delete=models.CASCADE, null=True)
-    subject = models.ForeignKey('app.Subject', on_delete=models.SET_NULL, null=True)
+    book = models.OneToOneField('app.Book', on_delete=models.CASCADE,
+                                null=True)
+    subject = models.ForeignKey('app.Subject', on_delete=models.SET_NULL,
+                                null=True)
 
 
 class Subject(models.Model):

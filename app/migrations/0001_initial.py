@@ -32,14 +32,18 @@ class Migration(migrations.Migration):
                 ('birthday', models.CharField(max_length=200)),
                 ('email', models.CharField(max_length=200)),
                 ('social_url', models.CharField(max_length=200, null=True)),
-                ('normalized_name', models.CharField(max_length=200, null=True)),
-                ('book', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='app.book')),
+                ('normalized_name', models.CharField(max_length=200,
+                                                     null=True)),
+                ('book', models.OneToOneField(
+                    null=True, on_delete=django.db.models.deletion.CASCADE,
+                    to='app.book')),
             ],
         ),
         migrations.CreateModel(
             name='Subject',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=200)),
             ],
         ),
@@ -54,6 +58,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='student',
             name='subject',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='app.subject'),
+            field=models.ForeignKey(null=True,
+                                    on_delete=django.db.models.deletion.SET_NULL,
+                                    to='app.subject'),
         ),
     ]
