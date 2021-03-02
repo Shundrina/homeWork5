@@ -1,7 +1,10 @@
+import uuid
+
+# from django.core.management.base import BaseCommand
 from django.core.management import BaseCommand
 from faker import Faker
 
-from app.models import Student
+from app.models import Student, Book, Teacher, Subject
 
 
 class Command(BaseCommand):
@@ -14,6 +17,12 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         faker = Faker()
         for _ in range(options['len']):
+            book = Book()
+            book.title = uuid.uuid4()
+            book.save()
+
+            subject, _ = Subject.objects.get_or_create(title='Python')
+
             student = Student()
             student.name = faker.first_name()
             student.surname = faker.last_name()
@@ -22,4 +31,10 @@ class Command(BaseCommand):
             student.birthday = faker.date()
             student.description = faker.text()
             student.email = faker.email()
+            student.book = book
+            student.subject = subject
             student.save()
+
+            teacher, _ = Teacher.objects.get_or_create(name=faker.name())
+            teacher.students.add(student)
+            teacher.save()
