@@ -38,4 +38,3 @@ class Command(BaseCommand):
             teacher, _ = Teacher.objects.get_or_create(name=faker.name())
             teacher.students.add(student)
             teacher.save()
-

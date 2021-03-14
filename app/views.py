@@ -75,7 +75,6 @@ class StudentsView(View):
             return render(request, 'index.html', context=context)
 
 
-
 class CreateNewStudentView(View):
 
     def get(self, request):
@@ -148,7 +147,8 @@ class UpdateSubjectView(View):
             student = Student.objects.get(id=student_id)
             subject.students.remove(student)
             subject_form = SubjectForm(instance=subject)
-            subject_students = Student.objects.filter(subject__title=subject.title)
+            subject_students = Student.objects.filter(
+                subject__title=subject.title)
             no_subject_students = Student.objects.filter(subject=None)
             context = {
                 'subject_form': subject_form,
@@ -163,7 +163,8 @@ class UpdateSubjectView(View):
             student = Student.objects.get(id=student_id)
             subject.students.add(student)
             subject_form = SubjectForm(instance=subject)
-            subject_students = Student.objects.filter(subject__title=subject.title)
+            subject_students = Student.objects.filter(
+                subject__title=subject.title)
             no_subject_students = Student.objects.filter(subject=None)
             context = {
                 'subject_form': subject_form,
@@ -205,8 +206,6 @@ class UpdateBookView(View):
         return render(request, 'book_update.html', context=context)
 
     def post(self, request, id):
-        book = get_object_or_404(Book, id=id)
-
         if request.POST.get('delete_book'):
             student_id = request.POST['delete_book']
             student = Student.objects.get(id=student_id)
@@ -232,8 +231,10 @@ class UpdateTeacherView(View):
     def get(self, request, id):
         teacher = get_object_or_404(Teacher, id=id)
         teacher_form = TeacherForm(instance=teacher)
-        teacher_students = Student.objects.filter(teachers__name=teacher.name)
-        no_teacher_students = Student.objects.exclude(teachers__name=teacher.name)
+        teacher_students = Student.objects.filter(
+            teachers__name=teacher.name)
+        no_teacher_students = Student.objects.exclude(
+            teachers__name=teacher.name)
         context = {
             'teacher_form': teacher_form,
             'teacher': teacher,
@@ -251,8 +252,10 @@ class UpdateTeacherView(View):
             student = Student.objects.get(id=student_id)
             teacher.students.remove(student)
             teacher_form = TeacherForm(instance=teacher)
-            teacher_students = Student.objects.filter(teachers__name=teacher.name)
-            no_teacher_students = Student.objects.exclude(teachers__name=teacher.name)
+            teacher_students = Student.objects.filter(
+                teachers__name=teacher.name)
+            no_teacher_students = Student.objects.exclude(
+                teachers__name=teacher.name)
             context = {
                 'teacher_form': teacher_form,
                 'teacher': teacher,
@@ -266,8 +269,10 @@ class UpdateTeacherView(View):
             student = Student.objects.get(id=student_id)
             teacher.students.add(student)
             teacher_form = TeacherForm(instance=teacher)
-            teacher_students = Student.objects.filter(teachers__name=teacher.name)
-            no_teacher_students = Student.objects.exclude(teachers__name=teacher.name)
+            teacher_students = Student.objects.filter(
+                teachers__name=teacher.name)
+            no_teacher_students = Student.objects.exclude(
+                teachers__name=teacher.name)
             context = {
                 'teacher_form': teacher_form,
                 'teacher': teacher,

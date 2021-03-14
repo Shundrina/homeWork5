@@ -1,7 +1,6 @@
 from django.db import models
 
 # Create your models here.
-from django.forms import ModelMultipleChoiceField
 
 
 class Student(models.Model):
@@ -46,4 +45,3 @@ class Teacher(models.Model):
         related_name='teachers',
         related_query_name='teachers',
     )
-

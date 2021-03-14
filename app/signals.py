@@ -1,5 +1,5 @@
 import re
-from django.db.models.signals import pre_save, pre_delete
+from django.db.models.signals import pre_save
 from django.dispatch import receiver
 import gender_guesser.detector as gender
 
