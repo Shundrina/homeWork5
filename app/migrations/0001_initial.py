@@ -34,11 +34,10 @@ class Migration(migrations.Migration):
                 ('social_url', models.CharField(max_length=200, null=True)),
                 ('normalized_name', models.CharField(max_length=200,
                                                      null=True)),
-                ('book', models.OneToOneField(null=True,
-                                              on_delete=django.db.models.deletion.CASCADE,
-                                              related_name='student',
-                                              related_query_name='student',
-                                              to='app.book')),
+                ('book', models.OneToOneField(
+                    null=True, on_delete=django.db.models.deletion.CASCADE,
+                    related_name='student', related_query_name='student',
+                    to='app.book')),
             ],
         ),
         migrations.CreateModel(
@@ -53,17 +52,17 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=200)),
-                ('students', models.ManyToManyField(related_name='teachers',
-                                                    related_query_name='teachers',
-                                                    to='app.Student')),
+                ('students', models.ManyToManyField(
+                    related_name='teachers', related_query_name='teachers',
+                    to='app.Student')),
             ],
         ),
         migrations.AddField(
             model_name='student',
             name='subject',
-            field=models.ForeignKey(null=True,
-                                    on_delete=django.db.models.deletion.SET_NULL,
-                                    related_name='students',
-                                    related_query_name='students', to='app.subject'),
+            field=models.ForeignKey(
+                null=True, on_delete=django.db.models.deletion.SET_NULL,
+                related_name='students', related_query_name='students',
+                to='app.subject'),
         ),
     ]

@@ -14,10 +14,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='student',
             name='subject',
-            field=models.ForeignKey(null=True,
-                                    on_delete=django.db.models.deletion.SET_NULL,
-                                    related_name='student',
-                                    related_query_name='student',
-                                    to='app.subject'),
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name='student', related_query_name='student',
+                to='app.subject'),
         ),
     ]
