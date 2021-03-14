@@ -12,7 +12,7 @@ class Command(BaseCommand):
     help = 'Add new student'
 
     def add_arguments(self, parser):
-        parser.add_argument('-l', '--len', type=int, default=10)
+        parser.add_argument('-l', '--len', type=int, default=1)
 
     def handle(self, *args, **options):
         faker = Faker()
@@ -21,7 +21,7 @@ class Command(BaseCommand):
             book.title = uuid.uuid4()
             book.save()
 
-            subject, _ = Subject.objects.get_or_create(title='Python')
+            subject, _ = Subject.objects.get_or_create(title='HTML')
 
             student = Student()
             student.name = faker.first_name()
@@ -38,3 +38,4 @@ class Command(BaseCommand):
             teacher, _ = Teacher.objects.get_or_create(name=faker.name())
             teacher.students.add(student)
             teacher.save()
+

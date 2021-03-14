@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %} Update subject {% endblock %}
+{% block body %}
+<div class="album py-5 bg-light mt-5">
+    <div class="container">
+        <form action="{% url 'subject_update' id=subject.id %}" method="POST" class="d-flex flex-column mx-auto col-md-12 align-items-center">
+            {% csrf_token %}
+            <div class="col-md-3 mb-4 d-flex flex-row align-items-center">
+                {{ subject_form }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+            <div class="d-flex flex-row mx-auto col-md-12">
+                <div class="d-flex flex-column mx-auto col-md-5">
+                    {% for student in subject_students %}
+                    <div class="d-flex flex-column card mb-4 box-shadow">
+                        {{ student.name }} {{ student.surname }}
+                        <button class="btn btn-danger col-md-12" type="submit" name="delete_student" value={{student.id}}>delete student</button>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="d-flex flex-column mx-auto col-md-5">
+                    {% for student in no_subject_students %}
+                    <div class="d-flex flex-column card mb-4 box-shadow">
+                        {{ student.name }} {{ student.surname }}
+                        <button class="btn btn-success col-md-12" type="submit" name="add_student" value={{student.id}}>add student</button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

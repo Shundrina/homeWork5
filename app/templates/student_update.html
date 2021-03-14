@@ -8,7 +8,7 @@
         <form action="{% url 'update_student' id=student.id %}" method="POST" class="d-flex flex-column mx-auto col-md-4">
             {% csrf_token %}
             {{ student_form }}
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-success">Submit</button>
         </form>
     </div>
 </div>

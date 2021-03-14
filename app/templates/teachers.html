@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Students {% endblock %}
+{% block body %}
+
+<div class="album py-5 bg-light mt-5">
+    <div class="container">
+        <div class="row">
+           {% for teacher in teachers %}
+            <div class="col-md-3">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                        <div class="list-group-item">
+                             <a href="/teachers/update/{{ teacher.id }}" class="my-2">
+                                <strong>{{ teacher.name }}</strong>
+                            </a>
+                        </div>
+                            <ol>
+                                {% for students in teacher.students.all %}
+                                <li>{{ students.name }} {{ students.surname }}</li>
+                                {% endfor %}
+                            </ol>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

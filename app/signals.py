@@ -18,6 +18,6 @@ def gender_control(sender, instance, **kwargs):
     instance.sex = detect.get_gender(instance.name)
 
 
-@receiver(pre_delete, sender=Student)
-def cancel_deletion(sender, instance, **kwargs):
-    raise Exception("don't delete")
+# @receiver(pre_delete, sender=Student)
+# def cancel_deletion(sender, instance, **kwargs):
+#     raise Exception("don't delete")
