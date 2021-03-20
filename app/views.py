@@ -1,3 +1,6 @@
+import csv
+
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic.base import View
@@ -285,3 +288,43 @@ class UpdateTeacherView(View):
             teacher_form.save()
 
         return redirect(reverse('teachers'))
+
+
+class CSVView(View):
+
+    def get(self, request):
+        response = HttpResponse(content_type="text/csv")
+        response['Content-Disposition'] = "attachment; " \
+                                          "filename=students_data.csv"
+        writer_for_response = csv.writer(response)
+        writer_for_response.writerow(["Name",
+                                      "Surname",
+                                      "Birthday",
+                                      "Book",
+                                      "Subject"])
+        students = Student.objects.all()
+        for student in students:
+            writer_for_response.writerow([
+                student.name,
+                student.surname,
+                student.birthday,
+                student.book,
+                student.subject if student.subject else None,
+            ])
+        return response
+
+
+class JsonView(View):
+
+    def get(self, request):
+        students = Student.objects.all()
+        return JsonResponse({
+            "students": list(students.values(
+                "name",
+                "surname",
+                "birthday",
+                "email",
+                "book__title",
+                "subject__title",
+            ))
+        })
