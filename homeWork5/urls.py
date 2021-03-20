@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app.views import StudentsView, CreateNewStudentView, UpdateStudentView
+from app.views import StudentsView, CreateNewStudentView, \
+    UpdateStudentView, BookView, SubjectView, TeacherView, \
+    UpdateSubjectView, UpdateTeacherView, UpdateBookView
 
 # from app.views import show_all_students as show, new_student_form,
 
@@ -26,4 +28,14 @@ urlpatterns = [
          name='new_student'),
     path('students/update/<id>/', UpdateStudentView.as_view(),
          name='update_student'),
+    path('subjects/', SubjectView.as_view(), name='subjects'),
+    path('subjects/update/<id>', UpdateSubjectView.as_view(),
+         name='subject_update'),
+    path('books/', BookView.as_view(), name='books'),
+    path('books/update/<id>', UpdateBookView.as_view(),
+         name='book_update'),
+    path('teachers/', TeacherView.as_view(), name='teachers'),
+    path('teachers/update/<id>', UpdateTeacherView.as_view(),
+         name='teacher_update'),
+
 ]

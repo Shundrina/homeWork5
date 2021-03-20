@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Students {% endblock %}
+{% block body %}
+<div class="album py-5 bg-light mt-5">
+    <div class="container">
+        <div class="row">
+            {% for book in books %}
+            <div class="col-md-3">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                        <div class="list-group-item">
+                             <a href="/books/update/{{ book.id }}" class="my-2">
+                                <strong>{{ book.title }}</strong>
+                            </a>
+                        </div>
+                        <div>
+                            {{ book.student.name }} {{book.student.surname}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

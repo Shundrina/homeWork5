@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Update subject {% endblock %}
+{% block body %}
+<div class="album py-5 bg-light mt-5">
+    <div class="container">
+        <form action="{% url 'book_update' id=book.id %}" method="POST" class="d-flex flex-column mx-auto align-items-center col-md-9">
+            {% csrf_token %}
+
+            {{ book_form }}
+            <button type="submit" class="btn btn-primary mb-4">Submit</button>
+
+            {% for student in book_students %}
+                <div>
+                    {{ student.name }} {{ student.surname }}
+                    <button class="btn btn-danger" type="submit" name="delete_book" value={{student.id}}>delete book</button>
+                </div>
+            {% endfor %}
+        </form>
+    </div>
+</div>
+{% endblock %}
