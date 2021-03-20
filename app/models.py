@@ -45,3 +45,12 @@ class Teacher(models.Model):
         related_name='teachers',
         related_query_name='teachers',
     )
+
+
+class Currency(models.Model):
+    id = models.AutoField(primary_key=True)
+    time = models.CharField(max_length=200)
+    ccy = models.CharField(max_length=200)
+    base_ccy = models.CharField(max_length=200)
+    buy = models.CharField(max_length=200)
+    sale = models.CharField(max_length=200)
