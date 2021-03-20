@@ -8,7 +8,9 @@ from app.models import Currency
 
 @shared_task
 def parse_privat():
-    response = requests.get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
+    response = requests.get(
+        'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
+    )
 
     return response.json()
 
