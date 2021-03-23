@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from app.views import StudentView, CreateStudentView, \
     UpdateStudentView, BookView, SubjectView, TeacherView, \
-    UpdateSubjectView, UpdateTeacherView, UpdateBookView, CSVView, JsonView, SendMailView, DeleteStudentView
+    UpdateSubjectView, UpdateTeacherView, UpdateBookView, \
+    CSVView, JsonView, SendMailView, DeleteStudentView
 
 # from app.views import show_all_students as show, new_student_form,
 

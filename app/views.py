@@ -7,7 +7,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import View
 # Create your views here.
 from app.emails import send_email
-from app.forms import StudentForm, SubjectForm, BookForm, TeacherForm
+from app.forms import SubjectForm, BookForm, TeacherForm
 from app.models import Student, Subject, Book, Teacher
 
 
