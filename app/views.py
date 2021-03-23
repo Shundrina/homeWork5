@@ -1,8 +1,11 @@
 import csv
 
+from django.conf import settings
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import View
 # Create your views here.
@@ -80,6 +83,7 @@ from app.models import Student, Subject, Book, Teacher
 #             return render(request, 'index.html', context=context)
 
 
+@method_decorator(cache_page(settings.CACHE_TTL), name='dispatch')
 class StudentView(ListView):
 
     model = Student
