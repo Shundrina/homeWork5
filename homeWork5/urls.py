@@ -15,19 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app.views import StudentsView, CreateNewStudentView, \
+from app.views import StudentView, CreateStudentView, \
     UpdateStudentView, BookView, SubjectView, TeacherView, \
-    UpdateSubjectView, UpdateTeacherView, UpdateBookView, CSVView, JsonView
+    UpdateSubjectView, UpdateTeacherView, UpdateBookView, \
+    CSVView, JsonView, SendMailView, DeleteStudentView
 
 # from app.views import show_all_students as show, new_student_form,
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('students/', StudentsView.as_view(), name='all_students'),
-    path('students/create', CreateNewStudentView.as_view(),
+    path('students/', StudentView.as_view(), name='all_students'),
+    path('students/create', CreateStudentView.as_view(),
          name='new_student'),
-    path('students/update/<id>/', UpdateStudentView.as_view(),
+    path('students/update/<pk>/', UpdateStudentView.as_view(),
          name='update_student'),
+    path('students/delete/<pk>/', DeleteStudentView.as_view(),
+         name='delete_student'),
     path('subjects/', SubjectView.as_view(), name='subjects'),
     path('subjects/update/<id>', UpdateSubjectView.as_view(),
          name='subject_update'),
@@ -39,4 +42,5 @@ urlpatterns = [
          name='teacher_update'),
     path('students/csv', CSVView.as_view(), name='csv_view'),
     path('students/json', JsonView.as_view(), name='json_view'),
+    path('send_email/', SendMailView.as_view(), name='send_email'),
 ]

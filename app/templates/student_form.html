@@ -5,9 +5,9 @@
 {% block body %}
 <div class="album py-5 bg-light mt-5">
     <div class="container">
-        <form action="/students/create" method="POST" class="d-flex flex-column mx-auto col-md-4">
+        <form method="POST" class="d-flex flex-column mx-auto col-md-4">
             {% csrf_token %}
-            {{ student_form }}
+            {{ form }}
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

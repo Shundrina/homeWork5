@@ -2,10 +2,12 @@ import csv
 
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import View
 # Create your views here.
-from app.forms import StudentForm, SubjectForm, BookForm, TeacherForm
+from app.emails import send_email
+from app.forms import SubjectForm, BookForm, TeacherForm
 from app.models import Student, Subject, Book, Teacher
 
 
@@ -38,80 +40,129 @@ from app.models import Student, Subject, Book, Teacher
 #         return redirect(reverse('new_student'))
 
 
-class StudentsView(View):
-
-    def get(self, request):
-        students = Student.objects.all()
-
-        return render(
-            request=request,
-            template_name='index.html',
-            context={
-                'students': students,
-            }
-        )
-
-    def post(self, request):
-
-        if request.POST.get('teacher_search'):
-            teachers_name = request.POST['teacher_search']
-            students = Student.objects.filter(teachers__name=teachers_name)
-            context = {
-                'students': students,
-            }
-            return render(request, 'index.html', context=context)
-
-        if request.POST.get('subject_search'):
-            subject_title = request.POST['subject_search']
-            students = Student.objects.filter(subject__title=subject_title)
-            context = {
-                'students': students,
-            }
-            return render(request, 'index.html', context=context)
-
-        if request.POST.get('book_search'):
-            book_title = request.POST['book_search']
-            students = Student.objects.filter(book__title=book_title)
-            context = {
-                'students': students,
-            }
-            return render(request, 'index.html', context=context)
-
-
-class CreateNewStudentView(View):
-
-    def get(self, request):
-        student_form = StudentForm()
-        context = {
-            'student_form': student_form,
-        }
-        return render(request, 'student_form.html', context=context)
-
-    def post(self, request):
-        student_form = StudentForm(request.POST)
-        if student_form.is_valid():
-            student_form.save()
-
-        return redirect(reverse('all_students'))
+# class StudentsView(View):
+#
+#     def get(self, request):
+#         students = Student.objects.all()
+#
+#         return render(
+#             request=request,
+#             template_name='index.html',
+#             context={
+#                 'students': students,
+#             }
+#         )
+#
+#     def post(self, request):
+#
+#         if request.POST.get('teacher_search'):
+#             teachers_name = request.POST['teacher_search']
+#             students = Student.objects.filter(teachers__name=teachers_name)
+#             context = {
+#                 'students': students,
+#             }
+#             return render(request, 'index.html', context=context)
+#
+#         if request.POST.get('subject_search'):
+#             subject_title = request.POST['subject_search']
+#             students = Student.objects.filter(subject__title=subject_title)
+#             context = {
+#                 'students': students,
+#             }
+#             return render(request, 'index.html', context=context)
+#
+#         if request.POST.get('book_search'):
+#             book_title = request.POST['book_search']
+#             students = Student.objects.filter(book__title=book_title)
+#             context = {
+#                 'students': students,
+#             }
+#             return render(request, 'index.html', context=context)
 
 
-class UpdateStudentView(View):
-    def get(self, request, id):
-        student = get_object_or_404(Student, id=id)
-        student_form = StudentForm(instance=student)
-        context = {
-            'student_form': student_form,
-            'student': student,
-        }
-        return render(request, 'student_update.html', context=context)
+class StudentView(ListView):
 
-    def post(self, request, id):
-        student = get_object_or_404(Student, id=id)
-        student_form = StudentForm(request.POST, instance=student)
-        if student_form.is_valid():
-            student_form.save()
+    model = Student
+    template_name = 'index.html'
 
-        return redirect(reverse('all_students'))
+
+# class CreateNewStudentView(View):
+#
+#     def get(self, request):
+#         student_form = StudentForm()
+#         context = {
+#             'student_form': student_form,
+#         }
+#         return render(request, 'student_form.html', context=context)
+#
+#     def post(self, request):
+#         student_form = StudentForm(request.POST)
+#         if student_form.is_valid():
+#             student_form.save()
+#
+#         return redirect(reverse('all_students'))
+
+
+class CreateStudentView(CreateView):
+
+    model = Student
+    fields = [
+            'name',
+            'surname',
+            'age',
+            'sex',
+            'address',
+            'description',
+            'birthday',
+            'email',
+            'social_url',
+            'subject',
+        ]
+    template_name = 'student_form.html'
+    success_url = reverse_lazy('all_students')
+
+
+# class UpdateStudentView(View):
+#     def get(self, request, id):
+#         student = get_object_or_404(Student, id=id)
+#         student_form = StudentForm(instance=student)
+#         context = {
+#             'student_form': student_form,
+#             'student': student,
+#         }
+#         return render(request, 'student_update.html', context=context)
+#
+#     def post(self, request, id):
+#         student = get_object_or_404(Student, id=id)
+#         student_form = StudentForm(request.POST, instance=student)
+#         if student_form.is_valid():
+#             student_form.save()
+#
+#         return redirect(reverse('all_students'))
+
+
+class UpdateStudentView(UpdateView):
+    model = Student
+    fields = [
+        'name',
+        'surname',
+        'age',
+        'sex',
+        'address',
+        'description',
+        'birthday',
+        'email',
+        'social_url',
+        'subject',
+    ]
+    template_name = 'student_form.html'
+    success_url = reverse_lazy('all_students')
+
+
+class DeleteStudentView(DeleteView):
+    model = Student
+    template_name = 'student_delete.html'
+    success_url = reverse_lazy('all_students')
 
 
 class SubjectView(View):
@@ -328,3 +379,14 @@ class JsonView(View):
                 "subject__title",
             ))
         })
+
+
+class SendMailView(View):
+
+    def get(self, request):
+
+        send_email(subject='some subject',
+                   message='some message',
+                   recipient_list=['email@gmail.com', ])
+
+        return HttpResponse('email sent')
