@@ -89,7 +89,7 @@ from app.models import Student, Subject, Book, Teacher
 #             return render(request, 'index.html', context=context)
 
 
-# @method_decorator(cache_page(settings.CACHE_TTL), name='dispatch')
+@method_decorator(cache_page(settings.CACHE_TTL), name='dispatch')
 class StudentView(ListView):
 
     model = Student
@@ -464,7 +464,9 @@ class LoginView(View):
         print(auth_form)
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request=request, username=username, password=password)
+        user = authenticate(request=request,
+                            username=username,
+                            password=password)
         if user is not None:
             login(request, user)
             return redirect(reverse('all_students'))
