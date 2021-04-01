@@ -1,16 +1,22 @@
 import csv
 
 from django.conf import settings
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import View
 # Create your views here.
 from app.emails import send_email
-from app.forms import SubjectForm, BookForm, TeacherForm
+from app.forms import SubjectForm, BookForm, TeacherForm, UserRegisterForm
 from app.models import Student, Subject, Book, Teacher
 
 
@@ -83,7 +89,7 @@ from app.models import Student, Subject, Book, Teacher
 #             return render(request, 'index.html', context=context)
 
 
-@method_decorator(cache_page(settings.CACHE_TTL), name='dispatch')
+# @method_decorator(cache_page(settings.CACHE_TTL), name='dispatch')
 class StudentView(ListView):
 
     model = Student
@@ -389,8 +395,85 @@ class SendMailView(View):
 
     def get(self, request):
 
-        send_email(subject='some subject',
-                   message='some message',
-                   recipient_list=['email@gmail.com', ])
+        send_email(recipient_list=['email@gmail.com', ])
 
         return HttpResponse('email sent')
+
+
+class RegisterView(View):
+
+    def get(self, request):
+        register_form = UserRegisterForm()
+
+        return render(request, 'registration.html', context={
+            'form': register_form,
+        })
+
+    def post(self, request):
+        register_form = UserRegisterForm(request.POST)
+        if register_form.is_valid():
+            user = register_form.save()
+            user.is_active = False
+            user.set_password(request.POST['password1'])
+            user.save()
+
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+
+            activate_url = "{}/{}/{}".format(
+                "http://localhost:8000/activate",
+                uid,
+                default_token_generator.make_token(user=user)
+            )
+
+            send_email(
+                recipient_list=[user.email],
+                activate_url=activate_url
+            )
+
+            return HttpResponse("Check your email list to activate account!")
+        return HttpResponse("Wrong Data")
+
+
+class ActivateView(View):
+
+    def get(self, request, uid, token):
+        user_id = force_bytes(urlsafe_base64_decode(uid))
+        user = User.objects.get(pk=user_id)
+
+        if not user.is_active and default_token_generator.check_token(user,
+                                                                      token):
+            user.is_active = True
+            user.save()
+            login(request, user)
+            return HttpResponse('token checked')
+
+        return HttpResponse('Your account activated')
+
+
+class LoginView(View):
+
+    def get(self, request):
+        auth_form = AuthenticationForm()
+
+        return render(request, 'login.html', context={
+            'form': auth_form,
+        })
+
+    def post(self, request):
+        auth_form = AuthenticationForm(request.POST)
+        print(auth_form)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request=request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(reverse('all_students'))
+        else:
+            return HttpResponse('No')
+
+
+class LogOutView(View):
+
+    def get(self, request):
+        logout(request)
+        return render(request=request, template_name='logout.html')

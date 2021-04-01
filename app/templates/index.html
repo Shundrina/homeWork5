@@ -24,35 +24,40 @@
 <!--            </form>-->
 <!--        </div>-->
         <div class="row">
-            {% for student in object_list %}
-            <div class="col-md-3">
-                <div class="card mb-4 box-shadow">
-                    {% if student.sex == 'female' or student.sex == 'F' or student.sex == 'mostly-female'  %}
-                    <img class="card-img-top" src="https://media.istockphoto.com/vectors/retro-screen-print-woman-drinking-wine-vector-id531489935?k=6&m=531489935&s=612x612&w=0&h=o2PePkQot9TaqnzYtfVgBzlltp6UVBX2OWwh6pRIJiA=" alt="Thumbnail [100%x225]" style="height: 400px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_177c5a704cf%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_177c5a704cf%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.2265625%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
-                    {% else %}
-                    <img class="card-img-top" src="https://p7.hiclipart.com/preview/207/420/912/beer-champagne-wine-alcoholic-drink-drinking-man.jpg" alt="Thumbnail [100%x225]" style="height: 400px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_177c5a704cf%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_177c5a704cf%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.2265625%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
-                    {% endif %}
-                    <div class="card-body">
-                        <div class="list-group-item">{{ student.name }} {{ student.surname }}</div>
-                        <div class="list-group-item">{{ student.age }}</div>
-                        <div class="list-group-item">{{ student.sex }}</div>
-                        <div class="list-group-item">{{ student.subject }}</div>
-                        <div class="list-group-item">{{ student.book }}</div>
-                            <ol>
-                                {% for teachers in student.teachers.all %}
-                                <li>{{ teachers.name }}</li>
-                                {% endfor %}
-                            </ol>
-                        <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <a href="update/{{ student.id }}" class="btn btn-sm btn-outline-primary mt-1">Edit</a>
+            {% if user.is_authenticated %}
+                {% for student in object_list %}
+                <div class="col-md-3">
+                    <div class="card mb-4 box-shadow">
+                        {% if student.sex == 'female' or student.sex == 'F' or student.sex == 'mostly-female'  %}
+                        <img class="card-img-top" src="https://media.istockphoto.com/vectors/retro-screen-print-woman-drinking-wine-vector-id531489935?k=6&m=531489935&s=612x612&w=0&h=o2PePkQot9TaqnzYtfVgBzlltp6UVBX2OWwh6pRIJiA=" alt="Thumbnail [100%x225]" style="height: 400px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_177c5a704cf%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_177c5a704cf%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.2265625%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
+                        {% else %}
+                        <img class="card-img-top" src="https://p7.hiclipart.com/preview/207/420/912/beer-champagne-wine-alcoholic-drink-drinking-man.jpg" alt="Thumbnail [100%x225]" style="height: 400px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_177c5a704cf%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_177c5a704cf%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.2265625%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
+                        {% endif %}
+                        <div class="card-body">
+                            <div class="list-group-item">{{ student.name }} {{ student.surname }}</div>
+                            <div class="list-group-item">{{ student.age }}</div>
+                            <div class="list-group-item">{{ student.sex }}</div>
+                            <div class="list-group-item">{{ student.subject }}</div>
+                            <div class="list-group-item">{{ student.book }}</div>
+                                <ol>
+                                    {% for teachers in student.teachers.all %}
+                                    <li>{{ teachers.name }}</li>
+                                    {% endfor %}
+                                </ol>
+                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="update/{{ student.id }}" class="btn btn-sm btn-outline-primary mt-1">Edit</a>
+                            </div>
+                          </div>
                         </div>
-                      </div>
                     </div>
-                </div>
 
-            </div>
-            {% endfor %}
+                </div>
+                {% endfor %}
+             {% else %}
+                You have to login.
+            {% endif %}
+
         </div>
     </div>
 </div>
