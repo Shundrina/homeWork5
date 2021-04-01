@@ -53,5 +53,6 @@ urlpatterns = [
     path('registration/', RegisterView.as_view(), name='register_view'),
     path('logout/', LogOutView.as_view(), name='logout_view'),
     path('login/', LoginView.as_view(), name='login_view'),
-    path('activate/<uid>/<token>', ActivateView.as_view(), name='activate_view'),
+    path('activate/<uid>/<token>', ActivateView.as_view(),
+         name='activate_view'),
 ]
