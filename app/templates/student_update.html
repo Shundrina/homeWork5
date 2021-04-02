@@ -5,7 +5,7 @@
 {% block body %}
 <div class="album py-5 bg-light mt-5">
     <div class="container">
-        <form method="POST" class="d-flex flex-column mx-auto col-md-4">
+        <form method="POST" action="{% url 'update_student' id=student.id %}" enctype="multipart/form-data" class="d-flex flex-column mx-auto col-md-4">
             {% csrf_token %}
             {{ form }}
             <button type="submit" class="btn btn-success">Submit</button>

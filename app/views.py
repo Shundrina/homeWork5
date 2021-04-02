@@ -117,17 +117,18 @@ class CreateStudentView(CreateView):
 
     model = Student
     fields = [
-            'name',
-            'surname',
-            'age',
-            'sex',
-            'address',
-            'description',
-            'birthday',
-            'email',
-            'social_url',
-            'subject',
-        ]
+        'name',
+        'surname',
+        'age',
+        'sex',
+        'address',
+        'description',
+        'birthday',
+        'email',
+        'social_url',
+        'subject',
+        'picture',
+    ]
     template_name = 'student_form.html'
     success_url = reverse_lazy('all_students')
 
@@ -164,6 +165,7 @@ class UpdateStudentView(UpdateView):
         'email',
         'social_url',
         'subject',
+        'picture',
     ]
     template_name = 'student_form.html'
     success_url = reverse_lazy('all_students')

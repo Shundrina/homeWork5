@@ -28,7 +28,7 @@ SECRET_KEY = '!*#jm=2#k94us&s)4+a3n=-^l1i0creftazxyac&t-1%x#he!d'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '0.0.0.0',
+    '0.0.0.0'
 ]
 
 
@@ -57,6 +57,9 @@ MIDDLEWARE = [
     'homeWork5.middleware.RawDataMiddleware',
     'homeWork5.middleware.IdentifyResponseMiddleware',
 ]
+
+MEDIA_ROOT = '/home/daria/homeWork/homeWork5/media/'
+MEDIA_URL = 'media/'
 
 ROOT_URLCONF = 'homeWork5.urls'
 
