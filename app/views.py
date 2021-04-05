@@ -89,7 +89,8 @@ from app.models import Student, Subject, Book, Teacher
 #                 'students': students,
 #             }
 #             return render(request, 'index.html', context=context)
-from app.serializers import StudentSerializer, TeacherSerializer, SubjectSerializer, BookSerializer
+from app.serializers import StudentSerializer, TeacherSerializer, \
+    SubjectSerializer, BookSerializer
 
 
 @method_decorator(cache_page(settings.CACHE_TTL), name='dispatch')
