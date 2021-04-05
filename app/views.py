@@ -15,6 +15,8 @@ from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import View
 # Create your views here.
+from rest_framework.viewsets import ModelViewSet
+
 from app.emails import send_email
 from app.forms import SubjectForm, BookForm, TeacherForm, UserRegisterForm
 from app.models import Student, Subject, Book, Teacher
@@ -87,6 +89,7 @@ from app.models import Student, Subject, Book, Teacher
 #                 'students': students,
 #             }
 #             return render(request, 'index.html', context=context)
+from app.serializers import StudentSerializer, TeacherSerializer, SubjectSerializer, BookSerializer
 
 
 @method_decorator(cache_page(settings.CACHE_TTL), name='dispatch')
@@ -481,3 +484,23 @@ class LogOutView(View):
     def get(self, request):
         logout(request)
         return render(request=request, template_name='logout.html')
+
+
+class StudentViewSet(ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+
+class TeacherViewSet(ModelViewSet):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer
+
+
+class SubjectViewSet(ModelViewSet):
+    queryset = Subject.objects.all()
+    serializer_class = SubjectSerializer
+
+
+class BookViewSet(ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
