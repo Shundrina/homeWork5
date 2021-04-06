@@ -513,6 +513,7 @@ class SubjectViewSet(ModelViewSet):
     pagination_class = PageNumberPagination
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ('title', )
+    ordering_fields = ('title',)
 
 
 class BookViewSet(ModelViewSet):
@@ -521,3 +522,4 @@ class BookViewSet(ModelViewSet):
     pagination_class = PageNumberPagination
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ('title', )
+    ordering_fields = ('title',)
