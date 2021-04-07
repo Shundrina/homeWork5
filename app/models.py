@@ -7,7 +7,7 @@ class Student(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
     surname = models.CharField(max_length=200)
-    age = models.IntegerField()
+    age = models.IntegerField(null=True)
     sex = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     description = models.TextField()
