@@ -1,7 +1,7 @@
 import re
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-import gender_guesser.detector as gender
+# import gender_guesser.detector as gender
 
 from app.models import Student
 
@@ -12,10 +12,10 @@ def normal_name(sender, instance, **kwargs):
     instance.normalized_name = re.sub('[^\w\s]|_', '', fullname).lower()   # noqa
 
 
-@receiver(pre_save, sender=Student)
-def gender_control(sender, instance, **kwargs):
-    detect = gender.Detector()
-    instance.sex = detect.get_gender(instance.name)
+# @receiver(pre_save, sender=Student)
+# def gender_control(sender, instance, **kwargs):
+#     detect = gender.Detector()
+#     instance.sex = detect.get_gender(instance.name)
 
 
 # @receiver(pre_delete, sender=Student)
