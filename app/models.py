@@ -13,6 +13,7 @@ class Student(models.Model):
     description = models.TextField()
     birthday = models.CharField(max_length=200)
     email = models.CharField(max_length=200)
+    picture = models.ImageField(upload_to='students_picture/', null=True)
     social_url = models.CharField(null=True, max_length=200)
     normalized_name = models.CharField(null=True, max_length=200)
     book = models.OneToOneField('app.Book', on_delete=models.CASCADE,

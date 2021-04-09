@@ -19,6 +19,7 @@ class StudentForm(ModelForm):
             'social_url',
             'book',
             'subject',
+            'picture',
         ]
 
 
@@ -47,7 +48,6 @@ class TeacherForm(ModelForm):
 
 
 class UserRegisterForm(UserCreationForm):
-
     class Meta:
         model = User
         fields = ("username", "email", "password1", "password2")
