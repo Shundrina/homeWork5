@@ -7,7 +7,14 @@ from rest_framework import serializers
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['name', 'surname', 'sex', 'email']
+        fields = [
+            'name',
+            'surname',
+            'sex',
+            'email',
+            'created_at',
+            'updated_at',
+        ]
 
 
 class SubjectSerializer(serializers.ModelSerializer):
@@ -23,7 +30,7 @@ class SubjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subject
-        fields = ['title', 'students']
+        fields = ['title', 'students', 'created_at', 'updated_at']
 
 
 class TeacherSerializer(serializers.ModelSerializer):
@@ -39,10 +46,10 @@ class TeacherSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Teacher
-        fields = ['name', 'students']
+        fields = ['name', 'students', 'created_at', 'updated_at']
 
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ['title']
+        fields = ['title', 'created_at', 'updated_at']
