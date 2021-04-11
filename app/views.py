@@ -496,10 +496,10 @@ class LogOutView(View):
 class StudentViewSet(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    # pagination_class = PageNumberPagination
-    # filter_backends = (DjangoFilterBackend,)
-    # filterset_fields = ('name', )
-    # ordering_fields = ('name',)
+    pagination_class = PageNumberPagination
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('name', )
+    ordering_fields = ('name',)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -522,25 +522,25 @@ class StudentViewSet(ModelViewSet):
 class TeacherViewSet(ModelViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
-    # pagination_class = PageNumberPagination
-    # filter_backends = (DjangoFilterBackend, OrderingFilter)
-    # filterset_fields = ('name', )
-    # # ordering_fields = ('name', )
+    pagination_class = PageNumberPagination
+    filter_backends = (DjangoFilterBackend, OrderingFilter)
+    filterset_fields = ('name', )
+    # ordering_fields = ('name', )
 
 
 class SubjectViewSet(ModelViewSet):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
-    # pagination_class = PageNumberPagination
-    # filter_backends = (DjangoFilterBackend,)
-    # filterset_fields = ('title', )
-    # ordering_fields = ('title',)
+    pagination_class = PageNumberPagination
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('title', )
+    ordering_fields = ('title',)
 
 
 class BookViewSet(ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    # pagination_class = PageNumberPagination
-    # filter_backends = (DjangoFilterBackend,)
-    # filterset_fields = ('title', )
-    # ordering_fields = ('title',)
+    pagination_class = PageNumberPagination
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('title', )
+    ordering_fields = ('title',)
