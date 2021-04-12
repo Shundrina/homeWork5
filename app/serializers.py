@@ -15,7 +15,7 @@ class SubjectSerializer(serializers.ModelSerializer):
     students = serializers.SerializerMethodField('paginated_students')
 
     def paginated_students(self, obj):
-        students = Student.objects.all()
+        students = Student.objects.get_queryset().order_by('name')
         pagination = Paginator(students, per_page=10)
         paginated_students = pagination.page(1)
 
@@ -28,7 +28,14 @@ class SubjectSerializer(serializers.ModelSerializer):
 
 class TeacherSerializer(serializers.ModelSerializer):
 
-    students = StudentSerializer(many=True)
+    students = serializers.SerializerMethodField('paginated_students')
+
+    def paginated_students(self, obj):
+        students = Student.objects.get_queryset().order_by('name')
+        pagination = Paginator(students, per_page=10)
+        paginated_students = pagination.page(1)
+
+        return StudentSerializer(instance=paginated_students, many=True).data
 
     class Meta:
         model = Teacher
