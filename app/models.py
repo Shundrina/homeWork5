@@ -21,10 +21,14 @@ class Student(models.Model):
                                 related_query_name='student')
     subject = models.ForeignKey(to='app.Subject', on_delete=models.SET_NULL,
                                 null=True, related_name='students')
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
 
 class Subject(models.Model):
     title = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.title
@@ -33,6 +37,8 @@ class Subject(models.Model):
 class Book(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.title
@@ -46,6 +52,8 @@ class Teacher(models.Model):
         related_name='teachers',
         related_query_name='teachers',
     )
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
 
 class Currency(models.Model):

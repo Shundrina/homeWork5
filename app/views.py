@@ -525,7 +525,7 @@ class TeacherViewSet(ModelViewSet):
     pagination_class = PageNumberPagination
     filter_backends = (DjangoFilterBackend, OrderingFilter)
     filterset_fields = ('name', )
-    ordering_fields = ('name', )
+    # ordering_fields = ('name', )
 
 
 class SubjectViewSet(ModelViewSet):

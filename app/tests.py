@@ -1,3 +1,4 @@
+import freezegun as freezegun
 from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
@@ -7,6 +8,7 @@ from rest_framework.test import APITestCase
 from app.models import Subject, Student, Teacher, Book
 
 
+@freezegun.freeze_time('1900-01-01 00:00:00')
 class StudentApiTests(APITestCase):
 
     def setUp(self) -> None:
@@ -24,6 +26,8 @@ class StudentApiTests(APITestCase):
                             'surname': 'Surname',
                             'sex': 'male',
                             'email': 'email@email.com',
+                            'created_at': '1900-01-01T00:00:00Z',
+                            'updated_at': '1900-01-01T00:00:00Z',
                             }]
                }
         self.assertEqual(response.json(), res)
@@ -49,7 +53,10 @@ class StudentApiTests(APITestCase):
         res = {'name': 'Noname',
                'surname': 'Some',
                'sex': 'unknown',
-               'email': 'some@mail.com'}
+               'email': 'some@mail.com',
+               'created_at': '1900-01-01T00:00:00Z',
+               'updated_at': '1900-01-01T00:00:00Z',
+               }
         self.assertEqual(response.json(), res)
 
     def test_delete_student(self):
@@ -59,6 +66,7 @@ class StudentApiTests(APITestCase):
         self.assertEqual(students.count(), 0)
 
 
+@freezegun.freeze_time('1900-01-01 00:00:00')
 class SubjectApiTests(APITestCase):
 
     def setUp(self) -> None:
@@ -81,7 +89,11 @@ class SubjectApiTests(APITestCase):
         response = self.client.put(reverse('api_subjects-detail',
                                            kwargs={'pk': subjects[0].id}),
                                    data={'title': 'some_subj'})
-        res = {'students': [], 'title': 'some_subj'}
+        res = {'students': [],
+               'title': 'some_subj',
+               'created_at': '1900-01-01T00:00:00Z',
+               'updated_at': '1900-01-01T00:00:00Z',
+               }
         self.assertEqual(response.json(), res)
 
     def test_delete_subject(self):
@@ -91,6 +103,7 @@ class SubjectApiTests(APITestCase):
         self.assertEqual(subjects.count(), 0)
 
 
+@freezegun.freeze_time('1900-01-01 00:00:00')
 class TeacherApiTests(APITestCase):
     def setUp(self) -> None:
         Teacher.objects.create(name='Name')
@@ -113,7 +126,12 @@ class TeacherApiTests(APITestCase):
         response = self.client.put(reverse('api_teachers-detail',
                                            kwargs={'pk': teachers[0].id}),
                                    data={'name': 'First_name'})
-        res = {'students': [], 'name': 'First_name'}
+        res = {
+            'students': [],
+            'name': 'First_name',
+            'created_at': '1900-01-01T00:00:00Z',
+            'updated_at': '1900-01-01T00:00:00Z',
+        }
         self.assertEqual(response.json(), res)
 
     def test_delete_teacher(self):
@@ -123,6 +141,7 @@ class TeacherApiTests(APITestCase):
         self.assertEqual(teachers.count(), 0)
 
 
+@freezegun.freeze_time('1900-01-01 00:00:00')
 class BookApiTests(APITestCase):
 
     def setUp(self) -> None:
@@ -145,7 +164,11 @@ class BookApiTests(APITestCase):
         response = self.client.put(reverse('api_books-detail',
                                            kwargs={'pk': books[0].id}),
                                    data={'title': 'some_boo'})
-        res = {'title': 'some_boo'}
+        res = {
+            'title': 'some_boo',
+            'created_at': '1900-01-01T00:00:00Z',
+            'updated_at': '1900-01-01T00:00:00Z',
+        }
         self.assertEqual(response.json(), res)
 
     def test_delete_book(self):
