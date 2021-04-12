@@ -15,12 +15,16 @@ from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import View
 # Create your views here.
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.viewsets import ModelViewSet
+from django_filters.rest_framework import DjangoFilterBackend, OrderingFilter
 
 from app.emails import send_email
 from app.forms import SubjectForm, BookForm, TeacherForm, UserRegisterForm
 from app.models import Student, Subject, Book, Teacher
 
+from app.serializers import StudentSerializer, TeacherSerializer, \
+    SubjectSerializer, BookSerializer
 
 # def show_all_students(request):
 #
@@ -89,8 +93,6 @@ from app.models import Student, Subject, Book, Teacher
 #                 'students': students,
 #             }
 #             return render(request, 'index.html', context=context)
-from app.serializers import StudentSerializer, TeacherSerializer, \
-    SubjectSerializer, BookSerializer
 
 
 @method_decorator(cache_page(settings.CACHE_TTL), name='dispatch')
@@ -490,18 +492,34 @@ class LogOutView(View):
 class StudentViewSet(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    pagination_class = PageNumberPagination
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('name', )
+    ordering_fields = ('name',)
 
 
 class TeacherViewSet(ModelViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
+    pagination_class = PageNumberPagination
+    filter_backends = (DjangoFilterBackend, OrderingFilter)
+    filterset_fields = ('name', )
+    ordering_fields = ('name', )
 
 
 class SubjectViewSet(ModelViewSet):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
+    pagination_class = PageNumberPagination
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('title', )
+    ordering_fields = ('title',)
 
 
 class BookViewSet(ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    pagination_class = PageNumberPagination
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('title', )
+    ordering_fields = ('title',)
